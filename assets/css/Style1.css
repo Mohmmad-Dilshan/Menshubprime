@@ -1,0 +1,102 @@
+
+
+
+/* CATEGORY */
+/* .cat-grid{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:15px;
+}
+
+.cat-card{
+background:#1e293b;
+padding:15px;
+border-radius:10px;
+text-align:center;
+}
+
+.cat-card img{width:100%} */
+
+/* DEALS */
+.deal-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+}
+
+.deal-card{
+background:#1e293b;
+padding:15px;
+border-radius:12px;
+position:relative;
+}
+
+.deal-card img{width:100%}
+
+.tag{
+position:absolute;
+top:10px;
+left:10px;
+background:#ff7a18;
+padding:5px 10px;
+border-radius:5px;
+}
+
+.tag.blue{background:#2563eb}
+
+.price{color:#ff7a18}
+
+.deal-card button{
+width:100%;
+padding:10px;
+border:none;
+background:#ff7a18;
+color:white;
+margin-top:10px;
+}
+
+/* WHY */
+/* .why{
+display:flex;
+justify-content:space-around;
+background:#1e293b;
+padding:20px;
+} */
+
+/* AFFILIATE */
+.affiliate{
+display:flex;
+justify-content:center;
+gap:25px;
+padding:30px;
+background:#0f172a;
+}
+
+.affiliate img{width:90px}
+
+/* TELEGRAM */
+.telegram{
+text-align:center;
+padding:40px;
+background:linear-gradient(#2563eb,#1e40af);
+}
+
+.telegram i{font-size:40px}
+.telegram button{
+padding:10px 20px;
+border:none;
+background:#ff7a18;
+color:white;
+margin:15px 0;
+}
+
+/* FOOTER */
+footer{
+text-align:center;
+padding:30px;
+background:#020617;
+}
+
+footer a{margin:0 10px}
+
+.social i{margin:10px}

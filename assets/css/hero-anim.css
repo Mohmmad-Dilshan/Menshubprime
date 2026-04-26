@@ -1,0 +1,520 @@
+/* === GLOBAL OVERFLOW LOCK === */
+html, body {
+  overflow-x: hidden !important;
+  width: 100%;
+  position: relative;
+}
+
+/* =====================================================
+   HERO CINEMA — NEXT LEVEL 3D SHOPPING SCENE
+   Triggers after 5s | Crossfade 1s
+   ===================================================== */
+
+/* === OVERLAY CANVAS === */
+#hero-cinema {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  overflow: hidden !important;
+  overflow-x: hidden !important;
+  contain: paint !important;
+  max-width: 100vw;
+  transition: opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  perspective: 1200px; /* Slightly deeper for tighter cards */
+  background: radial-gradient(ellipse at 60% 40%, #0f1e3d 0%, #020617 55%, #0a0018 100%);
+  z-index: 2;
+}
+
+/* === ANIME FLASH OVERLAY === */
+.hc-flash {
+  position: absolute;
+  inset: 0;
+  background: white;
+  opacity: 0;
+  z-index: 1000;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+.hc-flash.play {
+  animation: anime-flash 0.8s ease-out;
+}
+@keyframes anime-flash {
+  0%   { opacity: 0; }
+  10%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+#hero-cinema.active { opacity: 1; pointer-events: auto; }
+
+/* === DEEP SPACE PARTICLE FIELD === */
+.hc-cosmos {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(1.5px 1.5px at  5% 12%, #fff9 0,transparent 100%),
+    radial-gradient(1px   1px   at 18% 65%, #fff6 0,transparent 100%),
+    radial-gradient(2px   2px   at 30%  8%, #f9731666 0,transparent 100%),
+    radial-gradient(1px   1px   at 42% 80%, #fff5 0,transparent 100%),
+    radial-gradient(1.5px 1.5px at 55% 22%, #fff7 0,transparent 100%),
+    radial-gradient(2.5px 2.5px at 65% 50%, #f97316aa 0,transparent 100%),
+    radial-gradient(1px   1px   at 73% 78%, #fff6 0,transparent 100%),
+    radial-gradient(2px   2px   at 82%  5%, #fff8 0,transparent 100%),
+    radial-gradient(1px   1px   at 91% 90%, #f9731655 0,transparent 100%),
+    radial-gradient(1.5px 1.5px at 96% 35%, #fff4 0,transparent 100%);
+  animation: cosmos-drift 12s linear infinite;
+}
+@keyframes cosmos-drift {
+  0%   { transform: translateY(0); }
+  100% { transform: translateY(-30px); }
+}
+
+/* === AURORA BACKGROUND GLOW === */
+.hc-aurora {
+  position: absolute;
+  inset: -50%;
+  background: conic-gradient(
+    from 200deg at 60% 50%,
+    transparent 0deg,
+    rgba(249,115,22,0.08) 60deg,
+    rgba(99,102,241,0.06) 120deg,
+    transparent 180deg,
+    rgba(16,185,129,0.05) 240deg,
+    transparent 300deg
+  );
+  animation: aurora-spin 20s linear infinite;
+}
+@keyframes aurora-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* === 3D PERSPECTIVE FLOOR GRID === */
+.hc-stage {
+  position: absolute;
+  bottom: -10%;
+  left: -20%;
+  width: 140%;
+  height: 70%;
+  transform: perspective(500px) rotateX(72deg);
+  transform-origin: bottom center;
+  background-image:
+    repeating-linear-gradient(0deg,
+      rgba(249,115,22,0.12) 0, rgba(249,115,22,0.12) 1px,
+      transparent 1px, transparent 55px),
+    repeating-linear-gradient(90deg,
+      rgba(249,115,22,0.12) 0, rgba(249,115,22,0.12) 1px,
+      transparent 1px, transparent 55px);
+  animation: grid-pulse 3s ease-in-out infinite alternate;
+}
+@keyframes grid-pulse {
+  from { opacity: 0.5; }
+  to   { opacity: 1.0; }
+}
+/* Floor centre glow */
+.hc-stage::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 60%; height: 40%;
+  background: radial-gradient(ellipse, rgba(249,115,22,0.25) 0%, transparent 70%);
+}
+
+/* === 3D FLOATING PRODUCT CARDS === */
+.hc-cards-wrap {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+
+.hc-card {
+  position: absolute;
+  width: 115px;
+  background: rgba(15,23,42,0.75);
+  border: 1px solid rgba(249,115,22,0.35);
+  border-radius: 18px;
+  padding: 14px 12px 10px;
+  text-align: center;
+  backdrop-filter: blur(14px);
+  box-shadow:
+    0 0 0 1px rgba(249,115,22,0.1),
+    0 20px 60px rgba(0,0,0,0.6),
+    inset 0 1px 0 rgba(255,255,255,0.07);
+  color: white;
+  font-family: 'Outfit', sans-serif;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+  pointer-events: auto; /* Enable hover/click */
+}
+
+.hc-card:hover {
+  transform: translateY(-25px) scale(1.1) rotateY(0deg) rotateX(10deg) !important;
+  box-shadow: 
+    0 0 30px rgba(249,115,22,0.4),
+    0 30px 80px rgba(0,0,0,0.8);
+  border-color: rgba(249,115,22,1);
+  z-index: 100;
+}
+
+.hc-card-icon {
+  font-size: 36px;
+  margin-bottom: 6px;
+  display: block;
+  filter: drop-shadow(0 0 14px rgba(249,115,22,0.7));
+  animation: icon-bounce 2.5s ease-in-out infinite;
+}
+@keyframes icon-bounce {
+  0%,100% { transform: translateY(0)   scale(1); }
+  50%      { transform: translateY(-6px) scale(1.1); }
+}
+
+.hc-card-name {
+  font-size: 11px;
+  font-weight: 700;
+  color: #e2e8f0;
+  letter-spacing: 0.5px;
+  display: block;
+}
+.hc-card-price {
+  font-size: 13px;
+  font-weight: 800;
+  color: #fb923c;
+  margin-top: 3px;
+  display: block;
+}
+.hc-card-badge {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 9px;
+  font-weight: 700;
+  background: rgba(249,115,22,0.2);
+  border: 1px solid rgba(249,115,22,0.4);
+  color: #fb923c;
+  border-radius: 20px;
+  padding: 2px 8px;
+}
+
+/* Card 1 — shoes (left) */
+.hc-card:nth-child(1) {
+  top: 18%; left: 18%;
+  animation:
+    card-enter-l 1.0s 0.2s cubic-bezier(0.34,1.56,0.64,1) both,
+    card-float   5.0s 1.2s ease-in-out infinite;
+  transform: rotateY(18deg) rotateX(-6deg);
+}
+/* Card 2 — watch (right) */
+.hc-card:nth-child(2) {
+  top: 14%; right: 20%;
+  animation:
+    card-enter-r 1.0s 0.4s cubic-bezier(0.34,1.56,0.64,1) both,
+    card-float   5.5s 1.6s ease-in-out infinite reverse;
+  transform: rotateY(-18deg) rotateX(-6deg);
+}
+/* Card 3 — shirt (mid-left floating lower) */
+.hc-card:nth-child(3) {
+  top: 52%; left: 15%;
+  animation:
+    card-enter-l 1.0s 0.6s cubic-bezier(0.34,1.56,0.64,1) both,
+    card-float   4.5s 2.0s ease-in-out infinite;
+  transform: rotateY(14deg) rotateX(-4deg);
+}
+/* Card 4 — grooming (right lower) */
+.hc-card:nth-child(4) {
+  top: 50%; right: 18%;
+  animation:
+    card-enter-r 1.0s 0.8s cubic-bezier(0.34,1.56,0.64,1) both,
+    card-float   6.0s 2.4s ease-in-out infinite reverse;
+  transform: rotateY(-14deg) rotateX(-4deg);
+}
+
+@keyframes card-enter-l {
+  from { opacity:0; transform: translateX(-80px) rotateY(40deg) scale(0.7); }
+  to   { opacity:1; }
+}
+@keyframes card-enter-r {
+  from { opacity:0; transform: translateX(80px) rotateY(-40deg) scale(0.7); }
+  to   { opacity:1; }
+}
+@keyframes card-float {
+  0%,100% { transform: translateY(0)    rotateY(inherit) rotateX(inherit); }
+  50%     { transform: translateY(-16px) rotateY(inherit) rotateX(inherit); }
+}
+
+/* === HOLOGRAPHIC CENTER SHOWCASE === */
+.hc-showcase {
+  position: absolute;
+  bottom: 24%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  animation: showcase-enter 1.4s 0.1s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+@keyframes showcase-enter {
+  from { transform: translateX(-50%) scale(0.5) translateY(60px); opacity: 0; }
+  to   { transform: translateX(-50%) scale(1)   translateY(0);    opacity: 1; }
+}
+
+/* Holographic ring beneath man */
+.hc-holo-ring {
+  position: absolute;
+  bottom: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 160px; height: 30px;
+  border-radius: 50%;
+  border: 2px solid rgba(249,115,22,0.5);
+  box-shadow:
+    0 0 20px rgba(249,115,22,0.4),
+    0 0 60px rgba(249,115,22,0.15),
+    inset 0 0 20px rgba(249,115,22,0.1);
+  animation: ring-pulse 2s ease-in-out infinite;
+}
+@keyframes ring-pulse {
+  0%,100% { box-shadow: 0 0 20px rgba(249,115,22,0.4), 0 0 60px rgba(249,115,22,0.15); }
+  50%     { box-shadow: 0 0 35px rgba(249,115,22,0.7), 0 0 90px rgba(249,115,22,0.3); }
+}
+
+/* The man SVG */
+.hc-man {
+  width: 145px;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 25px 35px rgba(249,115,22,0.5));
+  animation: man-breathe 3s ease-in-out infinite;
+}
+@keyframes man-breathe {
+  0%,100% { transform: translateY(0) scale(1); }
+  50%     { transform: translateY(-8px) scale(1.02); }
+}
+
+/* Arms animated */
+.hc-arm-l { transform-origin: 22px 30px; animation: arm-reach 2s 0.3s ease-in-out infinite alternate; }
+.hc-arm-r { transform-origin: 88px 30px; animation: arm-reach 2s 0.8s ease-in-out infinite alternate-reverse; }
+@keyframes arm-reach {
+  from { transform: rotate(-20deg); }
+  to   { transform: rotate(  8deg); }
+}
+.hc-leg-l { transform-origin: 50px 110px; animation: leg-step 1.4s ease-in-out infinite alternate; }
+.hc-leg-r { transform-origin: 80px 110px; animation: leg-step 1.4s 0.7s ease-in-out infinite alternate-reverse; }
+@keyframes leg-step {
+  from { transform: rotate(-10deg); }
+  to   { transform: rotate( 10deg); }
+}
+
+/* === FLYING ITEM (shirt arc from rack → bag) === */
+.hc-fly-item {
+  position: absolute;
+  font-size: 28px;
+  line-height: 1;
+  opacity: 0;
+  filter: drop-shadow(0 0 16px rgba(249,115,22,0.9));
+  animation: fly-arc 3.5s 1.5s ease-in-out infinite;
+  z-index: 10;
+  top: 42%;
+  left: 18%;
+}
+@keyframes fly-arc {
+  0%      { opacity:0; transform: translate(0,0)       scale(1.2) rotate(0deg); }
+  10%     { opacity:1; transform: translate(20px,-30px) scale(1.3) rotate(-15deg); }
+  50%     { opacity:1; transform: translate(160px,-55px) scale(1)  rotate(-30deg); }
+  75%     { opacity:0.5; transform: translate(300px,-30px) scale(0.5) rotate(-45deg); }
+  80%,100%{ opacity:0; transform: translate(320px,0)     scale(0.2) rotate(-60deg); }
+}
+
+/* === ADDED TO BAG BURST === */
+.hc-burst {
+  position: absolute;
+  top: 38%; right: 7%;
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  color: #fb923c;
+  background: rgba(249,115,22,0.12);
+  border: 1px solid rgba(249,115,22,0.5);
+  border-radius: 30px;
+  padding: 8px 18px;
+  white-space: nowrap;
+  opacity: 0;
+  backdrop-filter: blur(12px);
+  animation: burst-pop 3.5s 2.8s ease-in-out infinite;
+  box-shadow: 0 0 20px rgba(249,115,22,0.3);
+}
+@keyframes burst-pop {
+  0%,48%  { opacity:0; transform: scale(0.4) translateY(0); }
+  52%     { opacity:1; transform: scale(1.1) translateY(-8px); }
+  60%     { opacity:1; transform: scale(1)   translateY(-10px); }
+  75%,100%{ opacity:0; transform: scale(0.7) translateY(-20px); }
+}
+
+/* === SCAN LINE (futuristic overlay) === */
+.hc-scanline {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0,0,0,0.04) 3px,
+    rgba(0,0,0,0.04) 4px
+  );
+  pointer-events: none;
+  z-index: 20;
+}
+
+/* === FLOATING HOLOGRAPHIC LABELS === */
+.hc-label {
+  position: absolute;
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 30px;
+  backdrop-filter: blur(12px);
+  white-space: nowrap;
+  border: 1px solid transparent;
+  animation: label-float 5s ease-in-out infinite;
+}
+.hc-label.orange {
+  color: #fb923c;
+  background: rgba(249,115,22,0.12);
+  border-color: rgba(249,115,22,0.35);
+  box-shadow: 0 0 20px rgba(249,115,22,0.2);
+}
+.hc-label.blue {
+  color: #60a5fa;
+  background: rgba(59,130,246,0.1);
+  border-color: rgba(59,130,246,0.3);
+  box-shadow: 0 0 20px rgba(59,130,246,0.15);
+}
+.hc-label.green {
+  color: #34d399;
+  background: rgba(16,185,129,0.1);
+  border-color: rgba(16,185,129,0.3);
+  box-shadow: 0 0 20px rgba(16,185,129,0.15);
+}
+.hc-label.orange { top: 16%;  left:  5%; animation-delay: 0.0s; }
+.hc-label.green  { top: 16%;  right: 5%; animation-delay: 0.8s; }
+.hc-label.blue   { 
+  top: 13%; left: 50%; 
+  transform: translateX(-50%); 
+  animation-delay: 1.6s; 
+  animation-name: label-float-c;
+  background: rgba(59,130,246,0.18);
+  border-color: rgba(59,130,246,0.6);
+  color: #60a5fa;
+  font-size: 13px;
+  padding: 8px 20px;
+}
+
+@keyframes label-float {
+  0%,100% { transform: translateY(0); opacity: 0.8; }
+  50%     { transform: translateY(-12px); opacity: 1; }
+}
+
+@keyframes label-float-c {
+  0%,100% { transform: translateX(-50%) translateY(0); opacity: 0.8; }
+  50%     { transform: translateX(-50%) translateY(-12px); opacity: 1; }
+}
+
+/* === DEAL STATS BAR (bottom) === */
+.hc-stats-bar {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 14px;
+  animation: stats-rise 1.2s 0.8s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+@keyframes stats-rise {
+  from { transform: translateX(-50%) translateY(40px); opacity: 0; }
+  to   { transform: translateX(-50%) translateY(0);    opacity: 1; }
+}
+.hc-stat {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(249,115,22,0.2);
+  border-radius: 14px;
+  padding: 10px 18px;
+  text-align: center;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+  animation: stat-glow 3s ease-in-out infinite alternate;
+}
+@keyframes stat-glow {
+  from { border-color: rgba(249,115,22,0.2); }
+  to   { border-color: rgba(249,115,22,0.5); box-shadow: 0 0 20px rgba(249,115,22,0.15); }
+}
+.hc-stat-num {
+  font-family: 'Outfit', sans-serif;
+  font-size: 20px;
+  font-weight: 900;
+  color: #fb923c;
+  display: block;
+}
+.hc-stat-lbl {
+  font-size: 9px;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  font-family: 'Outfit', sans-serif;
+}
+
+/* === LASER BEAM from man to rack === */
+.hc-laser {
+  position: absolute;
+  top: 47%;
+  left: 25%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, rgba(249,115,22,0), rgba(249,115,22,0.8), rgba(249,115,22,0));
+  border-radius: 2px;
+  animation: laser-scan 3.5s 1.5s ease-in-out infinite;
+  box-shadow: 0 0 10px rgba(249,115,22,0.6);
+}
+@keyframes laser-scan {
+  0%,8%   { width: 0;    opacity: 0; }
+  15%     { width: 110px; opacity: 1; }
+  48%     { width: 110px; opacity: 0.3; }
+  55%,100%{ width: 0;    opacity: 0; }
+}
+
+/* === HERO CONTENT FADE === */
+.hero-content {
+  transition: opacity 0.8s ease, transform 0.8s ease, visibility 0.8s;
+}
+
+/* Aggressive hide when cinema is active */
+.cinema-active .hero-content {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: translateY(-20px) scale(0.95);
+}
+
+/* === MOBILE === */
+@media (max-width: 768px) {
+  .hc-card { width: 85px; padding: 10px 8px; }
+  .hc-card-icon { font-size: 24px; }
+  .hc-man { width: 100px; }
+  .hc-holo-ring { width: 110px; }
+  .hc-stats-bar { gap: 6px; bottom: 8%; }
+  .hc-stat { padding: 5px 10px; }
+  .hc-stat-num { font-size: 14px; }
+  
+  /* Show all 4 cards on mobile, closer to man */
+  .hc-card:nth-child(1) { top: 15%; left: 8%; }
+  .hc-card:nth-child(2) { top: 12%; right: 8%; }
+  .hc-card:nth-child(3) { top: 48%; left: 6%; }
+  .hc-card:nth-child(4) { top: 46%; right: 6%; }
+  
+  .hc-fly-item { font-size: 20px; left: 10%; }
+  .hc-burst { font-size: 10px; right: 2%; top: 35%; }
+  .hc-label { font-size: 8px; padding: 4px 8px; }
+  .hc-label.blue { top: 10%; padding: 6px 12px; font-size: 11px; }
+}

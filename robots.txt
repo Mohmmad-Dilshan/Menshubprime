@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://thezayanway.com/sitemap_index.php

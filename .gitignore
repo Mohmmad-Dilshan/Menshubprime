@@ -1,0 +1,24 @@
+# Database & Security
+/config/db_credentials.php
+/config/ai_key.php
+/config/gemini_key.php
+.env
+
+# XAMPP & System Files
+/tmp/
+/cache/
+/scratch/
+/storage/logs/
+.DS_Store
+Thumbs.db
+error_log
+
+# Project Backups
+*.backup
+*.bak
+/config/config_backup.php
+.htaccess_backup
+
+# Uploads (Optional: if you don't want to push user images)
+#/assets/images/
+#/uploads/

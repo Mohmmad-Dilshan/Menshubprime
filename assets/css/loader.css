@@ -1,0 +1,585 @@
+/* =============================================
+   MENSHUB PRIME - CINEMATIC INTRO LOADER
+   Anime-style, letter-by-letter reveal & sweep
+   ============================================= */
+
+#site-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 2000000;
+  background: #020617;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: opacity 0.7s ease, visibility 0.7s ease;
+}
+
+#site-loader.hide {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* ── Background animated grid lines ── */
+.loader-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(251, 146, 60, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(251, 146, 60, 0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: gridDrift 8s linear infinite;
+}
+
+@keyframes gridDrift {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 60px 60px;
+  }
+}
+
+/* ── Radial glow ── */
+.loader-glow {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(251, 146, 60, 0.12) 0%, transparent 70%);
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+
+  50% {
+    transform: scale(1.3);
+    opacity: 1;
+  }
+}
+
+/* ── Content wrapper ── */
+.loader-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+/* ── Tag line above ── */
+.loader-tagline {
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  letter-spacing: 6px;
+  color: #fb923c;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeUp 0.6s ease 0.3s forwards;
+}
+
+/* ── Heart icon ── */
+.loader-heart {
+  font-size: 20px;
+  color: #fb923c;
+  margin-bottom: 8px;
+  opacity: 0;
+  animation: heartPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s forwards;
+  text-shadow: 0 0 20px rgba(251, 146, 60, 0.6);
+}
+
+@keyframes heartPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) rotate(-20deg);
+  }
+
+  70% {
+    transform: scale(1.2) rotate(5deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* ── Anime Mascot ── */
+.loader-mascot {
+  opacity: 0;
+  animation: mascotEntrance 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.1s forwards;
+  margin-bottom: 8px;
+}
+
+@keyframes mascotEntrance {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.7);
+  }
+
+  60% {
+    transform: translateY(-10px) scale(1.05);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.mascot-svg {
+  width: 130px;
+  height: auto;
+  filter: drop-shadow(0 10px 30px rgba(251, 146, 60, 0.25));
+  animation: mascotFloat 3s ease-in-out infinite 0.8s;
+}
+
+@keyframes mascotFloat {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+.mascot-shadow {
+  animation: shadowPulse 3s ease-in-out infinite 0.8s;
+}
+
+@keyframes shadowPulse {
+
+  0%,
+  100% {
+    transform: scaleX(1);
+    opacity: 0.25;
+  }
+
+  50% {
+    transform: scaleX(0.7);
+    opacity: 0.12;
+  }
+}
+
+/* Arm wave animation */
+.mascot-arm-r {
+  transform-origin: 106px 126px;
+  animation: armWave 1.5s ease-in-out infinite 1.5s;
+}
+
+@keyframes armWave {
+
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(-18deg);
+  }
+
+  75% {
+    transform: rotate(10deg);
+  }
+}
+
+/* Crown sparkle */
+.mascot-crown {
+  animation: crownGlow 2s ease-in-out infinite 1s;
+}
+
+@keyframes crownGlow {
+
+  0%,
+  100% {
+    filter: drop-shadow(0 0 4px rgba(251, 146, 60, 0.4));
+  }
+
+  50% {
+    filter: drop-shadow(0 0 12px rgba(251, 185, 60, 0.9));
+  }
+}
+
+/* Price tag wiggle */
+.mascot-tag {
+  transform-origin: 125px 134px;
+  animation: tagWiggle 2.5s ease-in-out infinite 2s;
+}
+
+@keyframes tagWiggle {
+
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  30% {
+    transform: rotate(6deg);
+  }
+
+  60% {
+    transform: rotate(-4deg);
+  }
+}
+
+/* ── Main brand name: letter-by-letter ── */
+.loader-brand {
+  display: flex;
+  gap: 0;
+  margin-bottom: 6px;
+}
+
+.loader-brand .l-word {
+  display: flex;
+  gap: 1px;
+}
+
+.loader-brand .l-word:first-child {
+  margin-right: 14px;
+}
+
+.loader-brand span {
+  display: inline-block;
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(36px, 8vw, 64px);
+  font-weight: 900;
+  color: #fff;
+  opacity: 0;
+  transform: translateY(30px) skewY(5deg);
+  animation: letterReveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Each letter gets its own delay via inline style */
+.loader-brand .prime-word span {
+  color: #fb923c;
+}
+
+@keyframes letterReveal {
+  to {
+    opacity: 1;
+    transform: translateY(0) skewY(0deg);
+  }
+}
+
+/* ── Animated underline bar ── */
+.loader-bar-wrap {
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 100px;
+  margin: 22px 0 20px;
+  overflow: hidden;
+  opacity: 0;
+  animation: fadeIn 0.4s ease 1.2s forwards;
+}
+
+.loader-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #fb923c, #f97316, #fb923c);
+  background-size: 200% 100%;
+  border-radius: 100px;
+  animation:
+    barFill 1.8s cubic-bezier(0.22, 1, 0.36, 1) 1.2s forwards,
+    barShimmer 1.5s linear 1.2s infinite;
+}
+
+@keyframes barFill {
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes barShimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* ── Scanning line ── */
+.loader-scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #fb923c, transparent);
+  animation: scanDown 2.5s ease-in-out infinite;
+  opacity: 0.4;
+}
+
+@keyframes scanDown {
+  0% {
+    top: 0%;
+  }
+
+  100% {
+    top: 100%;
+  }
+}
+
+/* ── Sub text ── */
+.loader-sub {
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  letter-spacing: 3px;
+  color: #475569;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: fadeIn 0.5s ease 1.0s forwards;
+}
+
+/* ── Corner accents ── */
+.loader-corner {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  opacity: 0;
+  animation: cornerFade 0.5s ease 0.8s forwards;
+}
+
+.loader-corner.tl {
+  top: 30px;
+  left: 30px;
+  border-top: 2px solid #fb923c;
+  border-left: 2px solid #fb923c;
+}
+
+.loader-corner.tr {
+  top: 30px;
+  right: 30px;
+  border-top: 2px solid #fb923c;
+  border-right: 2px solid #fb923c;
+}
+
+.loader-corner.bl {
+  bottom: 30px;
+  left: 30px;
+  border-bottom: 2px solid #fb923c;
+  border-left: 2px solid #fb923c;
+}
+
+.loader-corner.br {
+  bottom: 30px;
+  right: 30px;
+  border-bottom: 2px solid #fb923c;
+  border-right: 2px solid #fb923c;
+}
+
+@keyframes cornerFade {
+  to {
+    opacity: 0.6;
+  }
+}
+
+/* ── Utility keyframes ── */
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* ── Tap to Enter button (mobile only) ── */
+.loader-tap-btn {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 22px;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Outer ripple rings */
+.loader-tap-btn::before,
+.loader-tap-btn::after {
+  content: '';
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 2px solid rgba(251, 146, 60, 0.4);
+  animation: tapRipple 2s ease-out infinite;
+}
+
+.loader-tap-btn::after {
+  animation-delay: 0.7s;
+  border-color: rgba(251, 146, 60, 0.2);
+}
+
+@keyframes tapRipple {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+/* Inner circle icon */
+.tap-circle {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #fb923c, #f97316);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  color: white;
+  box-shadow:
+    0 0 0 8px rgba(251, 146, 60, 0.15),
+    0 12px 30px rgba(251, 146, 60, 0.5);
+  animation: tapBounce 1.8s ease-in-out infinite;
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes tapBounce {
+
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 8px rgba(251, 146, 60, 0.15), 0 12px 30px rgba(251, 146, 60, 0.5);
+  }
+
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 0 14px rgba(251, 146, 60, 0.1), 0 18px 40px rgba(251, 146, 60, 0.7);
+  }
+}
+
+/* Text labels */
+.tap-label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.5px;
+  margin-top: 8px;
+}
+
+.tap-sublabel {
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  color: #64748b;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* ── Mobile adjustments — everything fits on screen ── */
+@media (max-width: 768px) {
+
+  /* Allow scrolling inside loader if still too tall */
+  #site-loader {
+    justify-content: center;
+    padding: 10px 16px;
+  }
+
+  .loader-content {
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  /* Smaller mascot on mobile */
+  .mascot-svg {
+    width: 90px !important;
+  }
+
+  .loader-mascot {
+    margin-bottom: 4px;
+  }
+
+  /* Tagline tighter */
+  .loader-tagline {
+    font-size: 9px;
+    letter-spacing: 4px;
+    margin-bottom: 8px;
+  }
+
+  /* Heart smaller */
+  .loader-heart {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+
+  /* Brand letters smaller on mobile */
+  .loader-brand span {
+    font-size: 32px !important;
+  }
+
+  .loader-brand .l-word:first-child {
+    margin-right: 10px;
+  }
+
+  /* Bar tighter */
+  .loader-bar-wrap {
+    margin: 12px 0 10px;
+    width: 220px !important;
+  }
+
+  /* Sub text */
+  .loader-sub {
+    font-size: 10px;
+    letter-spacing: 2px;
+  }
+
+  /* Smaller corners */
+  .loader-corner {
+    width: 22px;
+    height: 22px;
+  }
+
+  .loader-corner.tl,
+  .loader-corner.tr {
+    top: 14px;
+  }
+
+  .loader-corner.bl,
+  .loader-corner.br {
+    bottom: 14px;
+  }
+
+  .loader-corner.tl,
+  .loader-corner.bl {
+    left: 14px;
+  }
+
+  .loader-corner.tr,
+  .loader-corner.br {
+    right: 14px;
+  }
+}
