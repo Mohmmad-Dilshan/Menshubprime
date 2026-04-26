@@ -78,7 +78,7 @@ cp db_credentials.php.example db_credentials.php
 
 ## 📧 Contact & Connect
 - **Developer**: Mohmmad Dilshan
-- **Project Link**: [[https://github.com/Mohmmad-Dilshan/Menshubprime](https://github.com/Mohmmad-Dilshan/Menshubprime](https://www.thezayanway.com/))
+- **Project Link**: [https://www.thezayanway.com]
 
 ---
 *Built with passion for the modern man.*
