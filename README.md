@@ -1,61 +1,84 @@
 # 👔 Mens Hub Prime
-### Premium Men's Lifestyle & Affiliate Marketing Platform
+> **A Premium Men's Lifestyle, Grooming & Affiliate Platform**
 
-**Mens Hub Prime** is a professional, high-performance web platform designed for content creators and affiliate marketers in the men's lifestyle niche. It features a stunning, modern UI with a powerful custom-built admin panel for managing blog posts, product comparisons, and affiliate links.
-
----
-
-## 🚀 Key Features
-
-- **💎 Premium UI/UX**: Built with modern aesthetics, glassmorphism, and smooth transitions.
-- **📝 Advanced Blog Engine**: Rich text editor (CKEditor/TinyMCE) for high-quality article creation.
-- **🛒 Affiliate Integration**: Seamlessly link products with automated ranking and affiliate tracking.
-- **🛠️ Custom Admin Dashboard**: Manage everything from blogs to SEO settings without touching the code.
-- **⚡ SEO Optimized**: Built-in tools for meta tags, sitemaps, and performance.
-- **📱 Fully Responsive**: Looks great on Desktop, Tablet, and Mobile.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![PHP Version](https://img.shields.io/badge/PHP-8.x-blue.svg)](https://www.php.net/)
+[![Platform](https://img.shields.io/badge/Platform-Web-orange.svg)](#)
+[![SEO](https://img.shields.io/badge/SEO-Optimized-success.svg)](#)
 
 ---
 
-## 🛠️ Technology Stack
-
-- **Backend**: PHP 8.x (Custom MVC-like structure)
-- **Database**: MySQL (using PDO for security)
-- **Frontend**: Vanilla CSS3, Modern JavaScript (ES6+), HTML5
-- **Editors**: CKEditor 5 / TinyMCE
-- **Icons**: FontAwesome 6
+## 🌟 Overview
+**Mens Hub Prime** is a full-stack, high-performance affiliate marketing and content platform tailored for the modern men's lifestyle niche. Built with a focus on **speed, aesthetics, and conversion**, it bridges the gap between high-quality editorial content and affiliate product placement.
 
 ---
 
-## ⚙️ Installation & Setup
+## ✨ Premium Features
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/YOUR_USERNAME/Menshubprime.git
-   ```
+### 📝 Content Management
+- **Rich Text Article Editor**: Professional blogging suite with support for headings, media, and formatting.
+- **Dynamic URL Slugs**: Auto-generating SEO-friendly URLs for every post.
+- **Category Management**: Organized lifestyle, grooming, and fashion sections.
 
-2. **Database Setup**:
-   - Create a new MySQL database.
-   - Import the `setup_database.sql` file (if available) into your database.
+### 🛒 Affiliate & Product Suite
+- **Ranked Top Picks**: Dynamic lists for product comparisons and "Best Of" articles.
+- **Affiliate Link Management**: Secure and trackable outbound links.
+- **Product Mockups**: Support for 3D reviews and high-quality product imagery.
 
-3. **Configure Credentials**:
-   - Go to the `config/` directory.
-   - Copy `db_credentials.php.example` to `db_credentials.php`.
-   - Update your database host, name, username, and password in `db_credentials.php`.
-
-4. **Run Locally**:
-   - Place the folder in your `htdocs` (XAMPP) or `www` directory.
-   - Open `localhost/Menshubprime` in your browser.
+### 🛡️ Secure Admin Panel
+- **Glassmorphic UI**: A beautiful, responsive dashboard for administrators.
+- **Role-Based Access**: Secure login and session management.
+- **Metadata Control**: Per-page SEO settings (Titles, Keywords, Descriptions).
 
 ---
 
-## 🔒 Security Note
-This repository uses a `.gitignore` file to ensure that sensitive information like database credentials and API keys are never exposed publicly. Always use the provided template files for local configuration.
+## 📂 Project Structure
+```bash
+Menshubprime/
+├── adminpanel/         # Professional Admin Dashboard
+├── config/             # Configuration & Security (db_credentials.php)
+├── includes/           # Reusable Components (Header, Footer, Navbar)
+├── resources/
+│   └── views/          # Frontend Pages & Templates
+├── src/
+│   └── Core/           # Backend Logic (Database, Routing, Config)
+├── assets/             # Images, Stylesheets, and JS
+└── README.md           # Project Documentation
+```
 
 ---
 
-## 🤝 Contribution
-Feel free to fork this project and submit pull requests. For major changes, please open an issue first to discuss what you would like to change.
+## 🛠️ Technical Stack
+- **Backend**: PHP 8.x (Custom Architecture)
+- **Frontend**: HTML5, Vanilla CSS3 (Custom Design System), JavaScript (ES6+)
+- **Database**: MySQL (PDO & MySQLi wrappers)
+- **Design Philosophy**: Modern Minimalism & Glassmorphism
 
 ---
 
-*Built with ❤️ for the Men's Lifestyle Community.*
+## 🚀 Getting Started
+
+### 1. Prerequisites
+- XAMPP / WAMP / LAMP Stack
+- PHP 8.0 or higher
+- MySQL 5.7 or higher
+
+### 2. Local Installation
+```bash
+# Clone the repo
+git clone https://github.com/Mohmmad-Dilshan/Menshubprime.git
+
+# Setup Config
+cd config/
+cp db_credentials.php.example db_credentials.php
+# (Edit db_credentials.php with your local DB info)
+```
+
+---
+
+## 📧 Contact & Connect
+- **Developer**: Mohmmad Dilshan
+- **Project Link**: [https://github.com/Mohmmad-Dilshan/Menshubprime](https://github.com/Mohmmad-Dilshan/Menshubprime)
+
+---
+*Built with passion for the modern man.*
